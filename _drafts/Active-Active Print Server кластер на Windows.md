@@ -22,9 +22,10 @@ image:
 
 ![Desktop View](/images/active-active-print-server-cluster.png){: width="2010" height="1022" .w-100 .normal}
 
-Для того чтобы достигнуть такой конфигурации нам необходимо, чтобы принтеры сервера печати подключались пользователям не по имени сервера `\\servename-in-office-A.domain.com\my-lovely-printer`, а по некоторому CNAME в DNS. Например `\\PRINT-OFFICE-A.domain.com\\my-lovely-printer-in-office-A`. Так как на обоих серверах установлен абсолютно одинаковый набор серверов - в необходимый момент мы можем переключить всех пользоватьелей работающих с принтерами опубликованными на `\\PRINT-OFFICE-A.domain.com` на `\\PRINT-OFFICE-B.domain.com`. Для этого мы просто изменим CNAME `PRINT-OFFICE-A.domain.com`, чтобы она стала указывать не на `servername-in-office-A.domain.com`, а на `servername-in-office-B.domain.com`.
+Для того чтобы достигнуть такой конфигурации нам необходимо, чтобы принтеры сервера печати подключались пользователям не по имени сервера `\\servename-in-office-A.domain.com\my-lovely-printer`, а по некоторому CNAME в DNS. Например `\\PRINT-OFFICE-A.domain.com\my-lovely-printer-in-office-A`. Так как на обоих серверах установлен абсолютно одинаковый набор серверов - в необходимый момент мы можем переключить всех пользоватьелей работающих с принтерами опубликованными на `\\PRINT-OFFICE-A.domain.com` на `\\PRINT-OFFICE-B.domain.com`. Для этого мы просто изменим CNAME `PRINT-OFFICE-A.domain.com`, чтобы она стала указывать не на `servername-in-office-A.domain.com`, а на `servername-in-office-B.domain.com`.
 
-# Активация работы сервера печати через CNAME
+# Настройка
+## Активация работы сервера печати через CNAME
 Для того чтобы с серверами печати можно было работать через CNAME, необходимо выполнить на каждом из них изменение в реестре[^footnote1].
 ```powershell
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Print" -Name "DnsOnWire" -PropertyType DWord -Value 1 -Force
