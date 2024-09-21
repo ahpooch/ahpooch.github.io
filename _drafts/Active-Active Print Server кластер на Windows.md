@@ -58,7 +58,8 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Print" -Name "Dns
 Для того чтобы набор установленных принтеров был одинаков для всех челнов кластера, мы будет устанавливать их используя Powershell скрипт.
 В скрипте необходимо будет описать драйверы для каждого из принтеров указав имя (name), путь к INF файлу (netpath) и местонахождение INF файла после установки драйвера (storePattern). К сожаления часть пути является динамической, поэтому в StorePattern мы используем * для определения папки с неизвестным заранее именем. 
 Этот скрипт необходимо подготовить под себя описав блоки с добавление нужных драйверов, после чего данным скриптом можно будет установить, и подготовить принтеры к использованию (опубликовать) на любом сервере.
-```Powershell
+
+```powershell
 #Скрипт установки всех принтеров на новом сервере печати
 #DuplexMode = @("OneSided","TwoSidedLongEdge","TwoSidedShortEdge")
 #PaperSize = see https://docs.microsoft.com/en-us/powershell/module/printmanagement/set-printconfiguration?view=windosserver2019-ps#:~:text=%5B%5D-,Description,Collate
@@ -76,9 +77,6 @@ $PrintersCSV = Get-Content -Path $PrintersCSVPath
 }
 
 $Printers = $PrintersCSV | ConvertFrom-Csv -Delimiter ","
-
-
-
 $drivers = @()
 $drivers += [pscustomobject]@{
     name = 'Canon Generic Plus PCL6'
@@ -148,7 +146,7 @@ foreach ($Printer in $Printers){
 ### Подготовка CSV файла с конфигурацией принтеров
 Далее нам необходимо подготовить CSV файл с принтерами, которой мы будет передавать на вход скрипта устанавливающего принтеры.
 В моем случа CSV файл с принтерами выглядит примерно так:
-```csv
+```CSV
 IP,Name,ModelFromWebUI,DriverFromInfFile,DuplexMode,PaperSize
 192.168.1.1,Office1-Main,Canon iR-ADV C3520 III,Canon Generic Plus PCL6,OneSided,A4
 192.168.1.2,Office1-BUH,Canon iR-ADV C3520 III,Canon Generic Plus PCL6,OneSided,A4
