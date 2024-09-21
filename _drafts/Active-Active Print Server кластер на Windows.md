@@ -139,8 +139,8 @@ foreach ($Printer in $Printers){
     Set-PrintConfiguration -PrinterName $Printer.Name -DuplexingMode $Printer.DuplexMode -PaperSize $Printer.PaperSize
     Set-Printer -Name $Printer.Name -Shared $true -ShareName $Printer.Name
 }
-
 ```
+{: file='.\Set-OfficePrinters.ps1'}
 
 ### Подготовка CSV файла с конфигурацией принтеров
 Далее нам необходимо подготовить CSV файл с принтерами, которой мы будет передавать на вход скрипта устанавливающего принтеры.
@@ -159,6 +159,15 @@ IP,Name,ModelFromWebUI,DriverFromInfFile,DuplexMode,PaperSize
 102.168.3.1,Office2.1-HR,Pantum CM1100DN,Pantum CM1100DN Series PCL6,OneSided,A4
 102.168.3.2,Office2.1-Main,Canon iR-ADV C3520,Canon Generic Plus PCL6,OneSided,A4
 ```
+{: file='printers.csv'}
+
+### Запуск скрипта установки принтеров
+```powershell
+& Set-Office Printer.ps1 -CSVFile
+```
+
+`C:\Example.txt`{: .filepath}
+
 
 ### Продолжение следует
 To be continue...
