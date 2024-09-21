@@ -164,7 +164,7 @@ IP,Name,ModelFromWebUI,DriverFromInfFile,DuplexMode,PaperSize
 
 ### Запуск скрипта установки принтеров
 ```powershell
-& Set-Office Printer.ps1 -CSVFile printer.csv
+& Set-OfficePrinter.ps1 -CSVFile printer.csv
 ```
 
 `C:\Example.txt`{: .filepath}
